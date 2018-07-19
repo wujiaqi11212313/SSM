@@ -9,7 +9,7 @@
 
     <typeAliases>
         <!--单个别名定义-->
-        <typeAlias type="po.User" alias="user"></typeAlias>
+        <typeAlias type="vo.User" alias="user"></typeAlias>
 
         <!--批量别名定义
             <package name="po"/>
