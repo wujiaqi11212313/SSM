@@ -1,11 +1,14 @@
 package vo;
 
+
+import java.util.Date;
+
 public class User {
     private int id;
     private String name;
     private String password;
-    private String age;
-    private String gender;
+    private Date createdate;
+    private Date lastupdate;
 
     public int getId() {
         return id;
@@ -31,19 +34,19 @@ public class User {
         this.password = password;
     }
 
-    public String getAge() {
-        return age;
+    public Date getCreatedate() {
+        return createdate;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public void setCreatedate(Date createdate) {
+        this.createdate = createdate;
     }
 
-    public String getGender() {
-        return gender;
+    public Date getLastupdate() {
+        return lastupdate;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setLastupdate(Date lastupdate) {
+        this.lastupdate = lastupdate;
     }
 }

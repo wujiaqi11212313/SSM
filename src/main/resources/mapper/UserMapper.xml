@@ -14,4 +14,7 @@ namespace:命名空间，作用就是对sql进行分类化管理
     <select id="findUserByName" parameterType="String" resultType="user">
         SELECT * FROM USER WHERE name LIKE '%${value}%'
     </select>
+    <insert id="insertUser" parameterType="user">
+        INSERT INTO USER (name ,password,createdate) VALUE (#{name},#{password},#{createdate})
+    </insert>
 </mapper>

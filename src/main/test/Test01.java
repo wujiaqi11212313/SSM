@@ -5,6 +5,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import vo.User;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 public class Test01 {
     private ApplicationContext applicationContext;
 
@@ -18,6 +23,26 @@ public class Test01 {
         UserMapper userMapper = (UserMapper) applicationContext.getBean("userMapper");
         User user = userMapper.findUserById(1);
         System.out.println(user);
-
     }
+
+    @Test
+    public void findUserByName(){
+        UserMapper userMapper = (UserMapper) applicationContext.getBean("userMapper");
+        List<User> list = userMapper.findUserByName("t");
+        for (User user:list){
+            System.out.println(user.getName());
+        }
+    }
+
+    @Test
+    public void insertUser(){
+        UserMapper userMapper = (UserMapper) applicationContext.getBean("userMapper");
+        User user = new User();
+        user.setName("tt");
+        user.setPassword("123");
+        userMapper.insertUser(user);
+    }
+
+
+
 }

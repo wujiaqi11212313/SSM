@@ -1,7 +1,10 @@
 package controller;
 
+import mapper.UserMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,15 +17,19 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
     private static List<User> userList;
+    private ApplicationContext applicationContext;
 
     public UserController() {
         super();
+        applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
         userList = new ArrayList();
     }
 
@@ -39,9 +46,12 @@ public class UserController {
                            @RequestParam("password") String password) {
         logger.info("register POST方法被调用");
         User user = new User();
+        Date date = new Date();
         user.setName(loginname);
         user.setPassword(password);
-        userList.add(user);
+        user.setCreatedate(date);
+        UserMapper userMapper = (UserMapper) applicationContext.getBean("userMapper");
+        userMapper.insertUser(user);
         return "loginForm";
     }
 
