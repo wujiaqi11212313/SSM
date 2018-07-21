@@ -5,9 +5,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import vo.User;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class Test01 {
@@ -15,7 +12,7 @@ public class Test01 {
 
     @Before
     public void setUp(){
-        applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        applicationContext = new ClassPathXmlApplicationContext("classpath:WEB-INF/applicationContext.xml");
     }
 
     @Test
@@ -42,7 +39,6 @@ public class Test01 {
         user.setPassword("123");
         userMapper.insertUser(user);
     }
-
 
 
 }

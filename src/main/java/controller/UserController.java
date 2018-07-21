@@ -1,6 +1,7 @@
 package controller;
 
-import mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import serviceImp.UserServiceImp;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
@@ -13,25 +14,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import vo.User;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
     private static List<User> userList;
-    private ApplicationContext applicationContext;
-
-    public UserController() {
-        super();
-        applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
-        userList = new ArrayList();
-    }
+    @Autowired
+    private UserServiceImp userServiceImp;
 
     private static final Log logger = LogFactory.getLog(UserController.class);
 
@@ -50,8 +45,9 @@ public class UserController {
         user.setName(loginname);
         user.setPassword(password);
         user.setCreatedate(date);
-        UserMapper userMapper = (UserMapper) applicationContext.getBean("userMapper");
-        userMapper.insertUser(user);
+        userServiceImp.regist(user);
+
+
         return "loginForm";
     }
 
