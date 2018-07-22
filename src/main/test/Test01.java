@@ -24,11 +24,11 @@ public class Test01 {
 
     @Test
     public void findUserByName(){
-        UserMapper userMapper = (UserMapper) applicationContext.getBean("userMapper");
+       /* UserMapper userMapper = (UserMapper) applicationContext.getBean("userMapper");
         List<User> list = userMapper.findUserByName("t");
         for (User user:list){
             System.out.println(user.getName());
-        }
+        }*/
     }
 
     @Test

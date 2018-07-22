@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import serviceImp.UserServiceImp;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import vo.User;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
@@ -27,28 +24,28 @@ public class UserController {
     private static List<User> userList;
     @Autowired
     private UserServiceImp userServiceImp;
+    @Autowired
+    private User user;
 
     private static final Log logger = LogFactory.getLog(UserController.class);
 
     @RequestMapping(value = "/register")
     public String registerForm() {
         logger.info("register被调用");
-        return "registerForm";
+        return "register";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(@RequestParam("loginname") String loginname,
                            @RequestParam("password") String password) {
         logger.info("register POST方法被调用");
-        User user = new User();
         Date date = new Date();
+
         user.setName(loginname);
         user.setPassword(password);
         user.setCreatedate(date);
         userServiceImp.regist(user);
-
-
-        return "loginForm";
+        return "login";
     }
 
     @RequestMapping("/login")
@@ -56,13 +53,15 @@ public class UserController {
                         @RequestParam("password") String password,
                         Model model) {
         logger.info("登录名:" + loginname + "密码:" + password);
-        for (User user : userList) {
-            if (user.getName().equals(loginname) && user.getPassword().equals(password)) {
-                model.addAttribute("user", user);
-                return "welcome";
-            }
+        User user = new User();
+        user.setName(loginname);
+        user.setPassword(password);
+        boolean b = userServiceImp.login(user);
+        if (b){
+            return "welcome";
+        }else {
+            return "login";
         }
-        return "loginForm";
     }
 
     /**
@@ -70,7 +69,7 @@ public class UserController {
      */
     @RequestMapping("/up")
     public String up(){
-        return "uploadForm";
+        return "upload";
     }
     @RequestMapping("/upload")
     public String upload(HttpServletRequest request,

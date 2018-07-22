@@ -12,6 +12,6 @@
     <title></title>
 </head>
 <body>
-${requestScope.user.username}
+welcome
 </body>
 </html>

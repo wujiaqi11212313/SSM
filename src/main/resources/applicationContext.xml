@@ -9,6 +9,7 @@
 
    <!-- <context:component-scan base-package="mapper"/>-->
    <context:component-scan base-package="serviceImp"/>
+   <context:component-scan base-package="vo"/>
 
 
     <!--Spring 通过一个 BeanPostProcessor 对 @Autowired 进行解析，所以要让 @Autowired 起作用必须事先在
